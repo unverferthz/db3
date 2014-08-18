@@ -1,11 +1,12 @@
 Splatter::Application.routes.draw do
   resources :splatts, except: [:new, :edit]
   resources :users, except: [:new, :edit]
+  get 'users/splatts-feed/:id' => 'users#splatts_feed'
   get 'users/splatts/:id' => 'users#splatts'
   get 'users/follows/:id' => 'users#show_follows'
   get 'users/followers/:id' => 'users#show_followers'
   post 'users/follows' => 'users#add_followers'
-  delete 'users/follows/:id/:follows_id' => 'users#delete_follows'
+  delete 'users/follows/:id/:follows_id' => 'users#delete_followers'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

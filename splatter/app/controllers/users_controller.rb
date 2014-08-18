@@ -62,7 +62,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     render json: @user.followed_by 
   end
-
+  
+  #GET /users/splatts-feed/1
+  def splatts_feed
+	@feed = Splatt.find_by_sql("SELECT splatts.body, splatts.user_id, splatts.id, splatts.created_at FROM splatts JOIN follows ON follows.followed_id=splatts.user_id WHERE follows.follower_id=#{params[:id]} ORDER BY created_at DESC")
+	
+	render json: @feed
+  end
+   
   def add_followers
 	@user = User.find(params[:id])
     @follows = User.find(params[:follows_id])
